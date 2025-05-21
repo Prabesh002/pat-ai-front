@@ -1,4 +1,4 @@
-import { IconSvgProps } from "@/types";
+import { IconSvgProps } from "@/modules/core/design-system/types";
 
 export const MoonFilledIcon = ({
   size = 24,
