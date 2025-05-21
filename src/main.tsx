@@ -4,14 +4,27 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.tsx";
 import { Provider } from "./provider.tsx";
+import { loadAppConfig } from "./api/config/apiConfig.ts";
 import "@/styles/globals.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+const rootElement = document.getElementById("root")!;
+
+const renderApp = () => {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>,
+  );
+};
+
+loadAppConfig()
+  .then(() => {
+    renderApp();
+  })
+  .catch(error => {
+    console.error("Failed to initialize the app:", error);
+  });

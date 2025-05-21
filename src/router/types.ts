@@ -6,4 +6,5 @@ export interface AppRoute {
   children?: AppRoute[]; 
   index?: boolean; 
   isPublic?: boolean;
+  requiresAuth?: boolean;
 }
