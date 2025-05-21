@@ -1,9 +1,7 @@
 import { title, subtitle } from "@/modules/core/design-system/primitives";
-import DefaultLayout from "@/modules/core/components/layouts/DefaultLayout";
 
 export default function IndexPage() {
   return (
-    <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <span className={title()}>Create Legal Documents&nbsp;</span>
@@ -18,6 +16,5 @@ export default function IndexPage() {
         </div>
 
       </section>
-    </DefaultLayout>
   );
 }
