@@ -12,9 +12,9 @@ import {
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { SearchIcon } from "@/components/icons";
+import { siteConfig } from "@/modules/core/lib/site.config";
+import { ThemeSwitch } from "@/modules/core/components/ThemeSwitch";
+import { SearchIcon } from "@/modules/core/design-system/icons";
 
 export const Navbar = () => {
   const searchInput = (
