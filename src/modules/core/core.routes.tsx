@@ -1,8 +1,8 @@
-import IndexPage from "@/pages/index";
-import DocsPage from "@/pages/docs";
-import PricingPage from "@/pages/pricing";
-import BlogPage from "@/pages/blog";
-import AboutPage from "@/pages/about";
+import IndexPage from "@/modules/core/pages/index";
+import DocsPage from "@/modules/core/pages/docs";
+import PricingPage from "@/modules/core/pages/pricing";
+import BlogPage from "@/modules/core/pages/blog";
+import AboutPage from "@/modules/core/pages/about";
 import DefaultLayout from "@/modules/core/components/layouts/DefaultLayout";
 import { AppRoute } from "@/router/types";
 
