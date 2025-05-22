@@ -1,16 +1,18 @@
 import { apiCaller } from '@/api/caller/apiCaller';
-import { AUTH_REGISTER_ENDPOINT, AUTH_LOGIN_ENDPOINT } from '../api/routes/authApiRoutes';
-import { RegisterRequest } from '../api/models/RegisterRequest';
-import { LoginRequest } from '../api/models/LoginRequest';
-import { AccessTokenDto } from '../api/models/AccessTokenDto';
-import { UserResponse } from '../api/models/UserResponse';
+import { JWT_LOCAL_STORAGE_KEY } from '@/api/constants'; 
+import type { AccessTokenDto } from '../api/models/AccessTokenDto';
+import type { LoginRequest } from '../api/models/LoginRequest';
+import type { RegisterRequest } from '../api/models/RegisterRequest';
+import type { UserResponse } from '../api/models/UserResponse';
+import { AUTH_LOGIN_ENDPOINT, AUTH_REGISTER_ENDPOINT } from '../api/routes/authApiRoutes';
+import { useAuth } from '../hooks/useAuth'; 
 import useLocalStorage from '@/modules/core/hooks/useLocalStorage';
-import { ACCESS_TOKEN_KEY } from '../constants';
-
 
 
 export const useAuthService = () => {
-  const [accessToken, setAccessToken] = useLocalStorage<string | null>(ACCESS_TOKEN_KEY, null);
+  const [_rawToken, setRawToken] = useLocalStorage<string | null>(JWT_LOCAL_STORAGE_KEY, null);
+  const zustandLogin = useAuth((state) => state.login);
+  const zustandLogout = useAuth((state) => state.logout);
 
   const register = async (data: RegisterRequest): Promise<UserResponse> => {
     const response = await apiCaller<AccessTokenDto>({
@@ -18,7 +20,8 @@ export const useAuthService = () => {
       method: 'POST',
       data,
     });
-    setAccessToken(response.access_token);
+    setRawToken(response.access_token);
+    zustandLogin(response.user_response); 
     return response.user_response;
   };
 
@@ -28,13 +31,15 @@ export const useAuthService = () => {
       method: 'POST',
       data,
     });
-    setAccessToken(response.access_token);
+    setRawToken(response.access_token);
+    zustandLogin(response.user_response); 
     return response.user_response;
   };
 
   const logout = () => {
-    setAccessToken(null);
+    setRawToken(null);
+    zustandLogout(); 
   };
 
-  return { register, login, logout, accessToken };
+  return { register, login, logout };
 };

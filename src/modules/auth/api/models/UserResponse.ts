@@ -1,6 +1,4 @@
-import { UUID } from "crypto";
-
 export interface UserResponse {
-    id: UUID;
+    id: string;
     user_name: string;
 }
