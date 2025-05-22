@@ -2,10 +2,12 @@ import { create } from 'zustand';
 import { persist, PersistOptions } from 'zustand/middleware';
 import { AUTH_STORAGE_KEY } from '../constants';
 
+import { UserResponse } from '../api/models/UserResponse';
+
 interface AuthState {
   isAuthenticated: boolean;
-  user: any | null;
-  login: (userData: any) => void;
+  user: UserResponse | null;
+  login: (user: UserResponse) => void;
   logout: () => void;
 }
 
@@ -16,7 +18,7 @@ export const useAuth = create<AuthState, [["zustand/persist", AuthPersist]]>(
     (set) => ({
       isAuthenticated: false,
       user: null,
-      login: (userData) => set({ isAuthenticated: true, user: userData }),
+      login: (user) => set({ isAuthenticated: true, user }),
       logout: () => set({ isAuthenticated: false, user: null }),
     }),
     {
