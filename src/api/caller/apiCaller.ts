@@ -2,6 +2,7 @@ import type { AxiosRequestConfig, AxiosError } from 'axios';
 
 import axiosInstance from '@/api/instance/axiosInstance';
 import type { ApiResponse } from '@/api/types/ApiResponse';
+import { showApiErrorToast } from '@/modules/core/toasts/showApiErrorToast';
 
 export class ApiError<T = any> extends Error {
   public statusCode?: number;
@@ -42,12 +43,15 @@ export const apiCaller = async <TResponseData>(
     if (axiosError.isAxiosError) {
       if (axiosError.response) {
         const errorResponseData = axiosError.response.data;
-        throw new ApiError(
+        
+        const apiError = new ApiError(
           errorResponseData?.message || axiosError.message || 'An unknown API error occurred.',
           axiosError.response.status,
           errorResponseData?.success || false,
           errorResponseData?.data
         );
+        showApiErrorToast(apiError);
+        throw apiError;
       } else {
         throw new ApiError(
           axiosError.message || 'A network error occurred.',

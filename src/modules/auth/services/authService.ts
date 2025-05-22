@@ -20,8 +20,6 @@ export const useAuthService = () => {
       method: 'POST',
       data,
     });
-    setRawToken(response.access_token);
-    zustandLogin(response.user_response); 
     return response.user_response;
   };
 

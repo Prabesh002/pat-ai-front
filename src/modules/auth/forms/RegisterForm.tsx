@@ -8,6 +8,7 @@ import { container, text, title } from '@/modules/core/design-system/primitives'
 import { useAuthService } from '../services/authService';
 import type { RegisterRequest } from '../api/models/RegisterRequest';
 import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
+import useAppToasts from '@/modules/core/hooks/useAppToasts';
 
 export interface RegisterFormProps {
   onSuccess?: () => void;
@@ -16,6 +17,7 @@ export interface RegisterFormProps {
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
   const navigate = useNavigate();
   const { register } = useAuthService();
+  const { showToast } = useAppToasts();
   const [formData, setFormData] = React.useState<RegisterRequest>({
     user_name: '',
     password: ''
@@ -26,6 +28,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
     try {
       await register(formData);
       onSuccess?.();
+      showToast({
+              title: 'Register Successful',
+              description: 'You have registered, please log in.',
+              color: 'success',
+              });
     } catch (error) {
       console.error('Registration failed:', error);
     }
