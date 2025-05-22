@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
 import { useNavigate } from 'react-router-dom';
-import { title } from '@/modules/core/design-system/primitives';
+import { container, text, title } from '@/modules/core/design-system/primitives';
 import { useAuthService } from '../services/authService';
 import { RegisterRequest } from '../api/models/RegisterRequest';
 import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
@@ -31,9 +31,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className={container({ blurred: true })}>
       <CardHeader>
-        <h1 className={title({ size: 'md', color: 'blue' })}>
+        <h1 className={title({ size: 'md', color: 'violet' })}>
           Create Account
         </h1>
       </CardHeader>
@@ -59,7 +59,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
           <Button type="submit" color="primary" fullWidth>
             Sign Up
           </Button>
-          <p className="text-sm text-default-500 text-center">
+          <p className={text({ size: 'sm', align: 'center' })}>
             Already have an account?{' '}
             <Button
               variant="light"

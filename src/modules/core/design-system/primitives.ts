@@ -40,6 +40,46 @@ export const title = tv({
   ],
 });
 
+export const background = tv({
+  base: "min-h-screen flex items-center justify-center p-4",
+  variants: {
+    color: {
+      violet: "bg-gradient-to-tr from-violet-100 to-pink-100 dark:from-violet-900 dark:to-pink-900",
+      slate: "bg-gradient-to-tr from-slate-100 to-gray-100 dark:from-slate-900 dark:to-gray-900",
+      gradient: "bg-gradient-to-tr from-[#FF1CF7] to-[#b249f8]"
+    }
+  },
+  defaultVariants: {
+    color: "violet"
+  }
+});
+
+export const container = tv({
+  base: "w-full max-w-md mx-auto p-6 rounded-2xl shadow-xl",
+  variants: {
+    blurred: {
+      true: "backdrop-blur-lg bg-background/80"
+    }
+  }
+});
+
+export const text = tv({
+  base: "text-default-500",
+  variants: {
+    size: {
+      sm: "text-sm",
+      md: "text-base",
+      lg: "text-lg"
+    },
+    align: {
+      center: "text-center"
+    }
+  },
+  defaultVariants: {
+    size: "md"
+  }
+});
+
 export const subtitle = tv({
   base: "w-full md:w-1/2 my-2 text-lg lg:text-xl text-default-600 block max-w-full",
   variants: {
