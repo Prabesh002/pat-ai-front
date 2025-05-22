@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
 import { useNavigate } from 'react-router-dom';
-import { title } from '@/modules/core/design-system/primitives';
-import { useAuthService } from '../services/authService';
-import { LoginRequest } from '../api/models/LoginRequest';
-import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
 import { Input } from '@heroui/input';
 import { Button } from '@heroui/button';
+
+import { title, container, text } from '@/modules/core/design-system/primitives'; 
+import { useAuthService } from '../services/authService';
+import type { LoginRequest } from '../api/models/LoginRequest';
+import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
 
 export interface LoginFormProps {
   onSuccess?: () => void;
@@ -31,7 +32,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className={container({ blurred: true })}> 
       <CardHeader>
         <h1 className={title({ size: 'md', color: 'blue' })}>
           Welcome Back
@@ -42,30 +43,30 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           <Input
             label="Username"
             placeholder="Enter your username"
+            required
             value={formData.user_name}
             onChange={(e) => setFormData(prev => ({ ...prev, user_name: e.target.value }))}
-            required
           />
           <Input
             label="Password"
-            type="password"
             placeholder="Enter your password"
+            required
+            type="password"
             value={formData.password}
             onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-            required
           />
         </CardBody>
         <CardFooter className="flex flex-col gap-2">
-          <Button type="submit" color="primary" fullWidth>
+          <Button color="primary" fullWidth type="submit">
             Sign In
           </Button>
-          <p className="text-sm text-default-500 text-center">
+          <p className={text({ size: 'sm', align: 'center' })}> 
             Don't have an account?{' '}
             <Button
-              variant="light"
-              color="primary"
-              onClick={() => navigate(AUTH_PAGE_ROUTES.REGISTER)}
               className="p-0 font-semibold"
+              color="primary"
+              variant="light"
+              onClick={() => navigate(AUTH_PAGE_ROUTES.REGISTER)}
             >
               Sign Up
             </Button>

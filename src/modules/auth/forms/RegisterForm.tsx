@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
 import { useNavigate } from 'react-router-dom';
-import { container, text, title } from '@/modules/core/design-system/primitives';
-import { useAuthService } from '../services/authService';
-import { RegisterRequest } from '../api/models/RegisterRequest';
-import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
 import { Input } from '@heroui/input';
 import { Button } from '@heroui/button';
+
+import { container, text, title } from '@/modules/core/design-system/primitives';
+import { useAuthService } from '../services/authService';
+import type { RegisterRequest } from '../api/models/RegisterRequest';
+import { AUTH_PAGE_ROUTES } from '../routes/authRouteConstants';
 
 export interface RegisterFormProps {
   onSuccess?: () => void;
@@ -42,30 +43,30 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
           <Input
             label="Username"
             placeholder="Choose a username"
+            required
             value={formData.user_name}
             onChange={(e) => setFormData(prev => ({ ...prev, user_name: e.target.value }))}
-            required
           />
           <Input
             label="Password"
-            type="password"
             placeholder="Create a password"
+            required
+            type="password"
             value={formData.password}
             onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-            required
           />
         </CardBody>
         <CardFooter className="flex flex-col gap-2">
-          <Button type="submit" color="primary" fullWidth>
+          <Button color="primary" fullWidth type="submit">
             Sign Up
           </Button>
           <p className={text({ size: 'sm', align: 'center' })}>
             Already have an account?{' '}
             <Button
-              variant="light"
-              color="primary"
-              onClick={() => navigate(AUTH_PAGE_ROUTES.LOGIN)}
               className="p-0 font-semibold"
+              color="primary"
+              variant="light"
+              onClick={() => navigate(AUTH_PAGE_ROUTES.LOGIN)}
             >
               Sign In
             </Button>
